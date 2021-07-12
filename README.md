@@ -1,7 +1,7 @@
 # eye-morphogenesis [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Table of Contents
-- [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-(seg_tracking_driverm))
+- [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
 - [PART 2: ANALYSIS (ANALYSIS_DRIVER.M)](#Part2)
 - [Installation](#installation)
 - [License](#license)
