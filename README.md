@@ -115,43 +115,43 @@ and exploration of the data.
 Cell tracking
 --------------------------------------------------------------------------
 
-![tracking_example](assets/tracking.gif).
+![tracking_example](assets/gitub_media/tracking.gif).
 
 --------------------------------------------------------------------------
 Annotation of ommatidial preclusters and photoreceptor classes
 --------------------------------------------------------------------------
 
-![precluster_ID_example](assets/preclusters.gif).
+![precluster_ID_example](assets/gitub_media/preclusters.gif).
 
 --------------------------------------------------------------------------
 Morphogenetic furrow location
 --------------------------------------------------------------------------
 
-![morphogenetic_furrow_location_example](assets/MF.gif).
+![morphogenetic_furrow_location_example](assets/gitub_media/MF.gif).
 
 --------------------------------------------------------------------------
 Cell velocity
 --------------------------------------------------------------------------
 
-![cell_velocity_example](assets/velocity.gif).
+![cell_velocity_example](assets/gitub_media/velocity.gif).
 
 --------------------------------------------------------------------------
 Ommatidial lattice column annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_column_annotation_example](assets/columns.gif).
+![ommatidial_lattice_column_annotation_example](assets/gitub_media/columns.gif).
 
 --------------------------------------------------------------------------
 Ommatidial lattice row annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_row_annotation_example](assets/rows.gif).
+![ommatidial_lattice_row_annotation_example](assets/gitub_media/rows.gif).
 
 --------------------------------------------------------------------------
 Ommatidial lattice annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_annotation_example](assets/lattice.gif).
+![ommatidial_lattice_annotation_example](assets/gitub_media/lattice.gif).
 
 
 ## Installation
