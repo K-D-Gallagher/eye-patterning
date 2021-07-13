@@ -17,7 +17,7 @@
 &nbsp;
 &nbsp;
 
-## PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
+# PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
 
 The goal of this driver file is to segment and track images. Unless you
 find a way to achieve perfect pixel classification, this will
@@ -29,7 +29,7 @@ lead to errors in cell tracking.
 
 &nbsp;
 
-### STEP 1: READ IN RAW IMAGES
+## STEP 1: READ IN RAW IMAGES
 
 While we technically will only be making measurements / doing analysis on
 a segmentation mask, it is helpful to view the segmentation mask as an
@@ -38,7 +38,7 @@ raw images into MATLAB and storing them in a 3D tensor.
 
 &nbsp;
 
-### STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
+## STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
 
 There are two ways of performing pixel classification. Either option is
 completed outside of MATLAB and then loaded in prior to detection of
@@ -46,7 +46,7 @@ cells.
 
 &nbsp;
 
-OPTION 1: PIXEL CLASSIFICATION USING ILASTIK
+### OPTION 1: PIXEL CLASSIFICATION USING ILASTIK
 
 The first option for pixel classification is using the pixel
 classification workflow in Ilastik (ilastik.org), which transforms the
@@ -59,7 +59,7 @@ https://www.ilastik.org/documentation/pixelclassification/pixelclassification
 
 &nbsp;
 
-OPTION 2: U-NET (or any other method of pixel classification that saves
+### OPTION 2: U-NET (or any other method of pixel classification that saves
 the result as a binary image)
 
 The second option for pixel classification is using U-NET or any other
@@ -69,7 +69,7 @@ classified as being a cell edge.
 
 &nbsp;
 
-### STEP 3: DETECT CELLS - watershed transform & bwlabel
+## STEP 3: DETECT CELLS - watershed transform & bwlabel
 
 After transforming our images into a space where 0s represent background
 pixels or cell interior and 1s represent cell edges, we next need to
@@ -82,7 +82,7 @@ defined using a defined 2D connectivity.
 
 &nbsp;
 
-### STEP 4: TRACKING - hungarian (munkres) algorithm
+## STEP 4: TRACKING - hungarian (munkres) algorithm
 
 Bwlabel gives cells a unique identify for every time point they exist. To
 track cells across time, we must create a map that connects cells between
@@ -92,7 +92,7 @@ https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-al
 
 &nbsp;
 
-### STEP 5: MANUAL CORRECTIONS - using the GUI
+## STEP 5: MANUAL CORRECTIONS - using the GUI
 
 Try as we might, there is currently no methodology that can generate
 perfect segmentation. U-Net performed the best out of all methods we
@@ -106,7 +106,7 @@ errors. Tutorial video pending.
 &nbsp;
 &nbsp;
 
-## PART 2: ANALYSIS (ANALYSIS_DRIVER.M)
+# PART 2: ANALYSIS (ANALYSIS_DRIVER.M)
 
 This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to 
 access our data and the various piece of data annotation we relied on
@@ -115,7 +115,7 @@ and exploration of the data.
 
 &nbsp;
 
-Cell tracking
+## Cell tracking
 
 Cells are
 
@@ -129,37 +129,32 @@ Annotation of ommatidial preclusters and photoreceptor classes
 
 &nbsp;
 
-Morphogenetic furrow location
---------------------------------------------------------------------------
+## Morphogenetic furrow location
 
 ![morphogenetic_furrow_location_example](github_media/MF.gif)
 
 &nbsp;
 
 
-Cell velocity
---------------------------------------------------------------------------
+## Cell velocity
 
 ![cell_velocity_example](github_media/velocity.gif)
 
 &nbsp;
 
-Ommatidial lattice column annotation
---------------------------------------------------------------------------
+## Ommatidial lattice column annotation
 
 ![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
 
 &nbsp;
 
-Ommatidial lattice row annotation
---------------------------------------------------------------------------
+## Ommatidial lattice row annotation
 
 ![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
 &nbsp;
 
-Ommatidial lattice annotation
---------------------------------------------------------------------------
+## Ommatidial lattice annotation
 
 ![ommatidial_lattice_annotation_example](github_media/lattice.gif)
 
@@ -168,10 +163,12 @@ Ommatidial lattice annotation
 &nbsp;
 
 
-## Installation
+# Installation
 We recommend using MATLAB R2018a or newer. We have not tested our code with older versions of MATLAB. This code additionally requires MATLAB's Image Processing Toolbox.
 
-## License
+&nbsp;
+
+# License
 The MIT License (MIT)
 
 Copyright (c) 2021 Kevin D Gallagher
@@ -182,6 +179,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Questions
+&nbsp;
+
+# Questions
 Reach out to me at kevin.d.gallagher2@gmail.com if you have any questions about this repository or code.
 Contact Madhav Mani (madhav.mani@northwestern.edu) or Richard Carthew (r-carthew@northwestern.edu) with questions pertaining to the affiliated publication
