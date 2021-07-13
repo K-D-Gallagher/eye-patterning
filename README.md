@@ -3,13 +3,13 @@
 &nbsp;
 
 ## Table of Contents
-- [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
+- [PART 1: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
+- [PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
 - [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
 - [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification--segmentation)
 - [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells---watershed-transform--bwlabel)
 - [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking---hungarian-munkres-algorithm)
 - [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections---using-the-gui)
-- [PART 2: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
 - [Installation](#installation)
 - [License](#license)
 
@@ -17,7 +17,60 @@
 &nbsp;
 &nbsp;
 
-# PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
+# PART 1: ANALYSIS (ANALYSIS_DRIVER.M)
+
+The data we are publishing is very rich and contains many more phenomena than the ones we've reported on. This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to access our data and the various ways we've annotation the data to extract measurements from subpopulations of cells and/or different regions of interest in the tissue. We hope this code helps facilitate further analysis from researchers interested in expanding on our work or, even better, asking new questions entirely!
+
+&nbsp;
+
+## Cell tracking
+
+After segmenting cells [(see Part 2 below)](#part-1-segmentation-and-tracking-seg_tracking_driverm), we use the [munkres assignment algorithm](#step-4-tracking---hungarian-munkres-algorithm) to map cells between adjacent time points. Here, we demonstrate how to display a representation of tracked cells via a color mask that uses a unique, random color to label each tracked object.
+
+![tracking_example](github_media/tracking.gif)
+
+&nbsp;
+
+Annotation of ommatidial preclusters and photoreceptor classes
+
+![precluster_ID_example](github_media/preclusters.gif)
+
+&nbsp;
+
+## Morphogenetic furrow location
+
+![morphogenetic_furrow_location_example](github_media/MF.gif)
+
+&nbsp;
+
+
+## Cell velocity
+
+![cell_velocity_example](github_media/velocity.gif)
+
+&nbsp;
+
+## Ommatidial lattice column annotation
+
+![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
+
+&nbsp;
+
+## Ommatidial lattice row annotation
+
+![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
+
+&nbsp;
+
+## Ommatidial lattice annotation
+
+![ommatidial_lattice_annotation_example](github_media/lattice.gif)
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+# PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
 
 The goal of this driver file is to segment and track images. Unless you
 find a way to achieve perfect pixel classification, this will
@@ -119,63 +172,6 @@ errors. Tutorial video pending.
 &nbsp;
 &nbsp;
 &nbsp;
-
-# PART 2: ANALYSIS (ANALYSIS_DRIVER.M)
-
-This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to 
-access our data and the various piece of data annotation we relied on
-for our analysis. We hope this provides the foundation for future analysis
-and exploration of the data.
-
-&nbsp;
-
-## Cell tracking
-
-Cells are
-
-![tracking_example](github_media/tracking.gif)
-
-&nbsp;
-
-Annotation of ommatidial preclusters and photoreceptor classes
-
-![precluster_ID_example](github_media/preclusters.gif)
-
-&nbsp;
-
-## Morphogenetic furrow location
-
-![morphogenetic_furrow_location_example](github_media/MF.gif)
-
-&nbsp;
-
-
-## Cell velocity
-
-![cell_velocity_example](github_media/velocity.gif)
-
-&nbsp;
-
-## Ommatidial lattice column annotation
-
-![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
-
-&nbsp;
-
-## Ommatidial lattice row annotation
-
-![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
-
-&nbsp;
-
-## Ommatidial lattice annotation
-
-![ommatidial_lattice_annotation_example](github_media/lattice.gif)
-
-&nbsp;
-&nbsp;
-&nbsp;
-
 
 # Installation
 We recommend using MATLAB R2018a or newer. We have not tested our code with older versions of MATLAB. This code additionally requires MATLAB's Image Processing Toolbox.
