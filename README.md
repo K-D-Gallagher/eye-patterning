@@ -55,7 +55,7 @@ The morphogenetic furrow is the wavefront of differenetiation in this system. As
 
 ## Cell centroid velocity field
 
-The cell centroid velocity field is calculated through central displacement of cell centroids over one hour of developmental time (the movie has a frame rate of 5 minutes, so this is 12 frames of the movie). One hour was found to be the timescale over which deterministic behavior emerged. The velocity field derivated from shorter time steps introduced additional noise to the organization of the velocity field, whereas timesteps greater than an hour did not substantial change the behavior/organization of the velocity field. Here, we demonstrate how to visualize the velocity field using matlab's quiver function.
+The cell centroid velocity field is calculated through central displacement of cell centroids over one hour of developmental time (the movie has a frame rate of 5 minutes, so this is 12 frames of the movie). One hour was found to be the timescale over which deterministic behavior emerged. Using timesteps greater than an hour did not substantial change the behavior/organization of the velocity field, whereas using shorter time steps introduced additional noise to the organization of the velocity field. Note the strong cell flow in the morphogenetic furrow (red line) in the anterior direction (down), organized into an oscillating, periodic pattern. Here, we demonstrate how to visualize the velocity field using matlab's quiver function.
 
 ![cell_velocity_example](github_media/velocity.gif)
 
