@@ -24,9 +24,9 @@
 
 # Getting started
 
-We recommend using [MATLAB R2018a](https://www.mathworks.com/products/new_products/release2018a.html). The [Image Processing Toolkit](https://www.mathworks.com/products/image.html) is required. Most of the code will run fine with newer versions of MATLAB. However, the GUI for manually correcting segmentation/tracking ('segmenter.m'/'segmenter.fig') was developed using GUIDE, which is becoming deprecated in newer versions of MATLAB.
+We recommend using [MATLAB R2018a](https://www.mathworks.com/products/new_products/release2018a.html). The [Image Processing Toolkit](https://www.mathworks.com/products/image.html) is required. Most of the code will run fine with newer versions of matlab. However, the GUI for manually correcting segmentation/tracking ('segmenter.m'/'segmenter.fig') was developed using GUIDE, which is becoming deprecated in newer versions of matlab.
 
-Data can be downloaded [here](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). Each dataset is stored as a matlab workspace that contains all the necessary information to run each block of code in 'ANALYSIS_DRIVER.m': Wildtype Replicate 1 can be found in 'wildtype1_data.mat', Wildtype Replicate 2 in 'wildtype2_data.mat', the strong _scabrous_ mutant in 'scabrous_strongMutant_data.mat', and the _weak_ scabrous mutant 'scabrous_weakMutant_data.mat'. Load the .mat files into MATLAB workspace and then use the driver file to get started with your analysis. Note, only Wildtype Replicate 1 contains the necessary annotations to run the sections pertaining to the ommatidial lattice annotation.
+Data can be downloaded [here](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). Each dataset is stored as a matlab workspace that contains all the necessary information to run each block of code in 'ANALYSIS_DRIVER.m': Wildtype Replicate 1 can be found in 'wildtype1_data.mat', Wildtype Replicate 2 in 'wildtype2_data.mat', the strong _scabrous_ mutant in 'scabrous_strongMutant_data.mat', and the _weak_ scabrous mutant 'scabrous_weakMutant_data.mat'. Load the .mat files into matlab workspace and then use the driver file to get started with your analysis. Note, only Wildtype Replicate 1 contains the necessary annotations to run the sections pertaining to the ommatidial lattice annotation.
 
 Additionally, the raw images and corresponding segmentation masks are also [available for download](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). However, note that our tracking results cannot be perfectly replicated using the munkres assignment algorithm we used for cell tracking because we implemented manual changes to cell tracking via the 'segmenter' GUI. The exact tracking information we used in the publication is contained within the .mat files corresponding to each dataset.
 
@@ -105,7 +105,7 @@ The goal of this driver file is to document the pipeline we used to process data
 
 ## Read in raw images
 
-While we technically will only be making measurements / doing analysis on a segmentation mask, it is helpful to view the segmentation mask as an overlay on top of the raw images. Therefore, we'll start by loading the raw images into MATLAB and storing them in a 3D tensor.
+While we technically will only be making measurements / doing analysis on a segmentation mask, it is helpful to view the segmentation mask as an overlay on top of the raw images. Therefore, we'll start by loading the raw images into matlab and storing them in a 3D tensor.
 
 ![raw_images_example](github_media/raw.gif)
 
@@ -113,7 +113,7 @@ While we technically will only be making measurements / doing analysis on a segm
 
 ## Pixel classification & segmentation
 
-There are two ways of performing pixel classification. Both are external to MATLAB and should be completed before use of this driver file.
+There are two ways of performing pixel classification. Both are external to matlab and should be completed before use of this driver file.
 
 ### Option 1: Pixel classification using Ilastik
 
@@ -159,7 +159,7 @@ Bwlabel gives cells a unique identify for every time point they exist. To track 
 
 ## Manual corrections - using the GUI
 
-Try as we might, there is currently no methodology that can generate perfect segmentation. CNNs performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 10% error in tracking! Therefore, we developed a matlab GUI (segmeter.m/segmenter.fig) that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
+Try as we might, there is currently no methodology that can generate perfect segmentation. CNNs performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 20% error in tracking! Therefore, we developed a matlab GUI (segmeter.m/segmenter.fig) that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
 
 &nbsp;
 &nbsp;
