@@ -28,11 +28,10 @@
 
 The data we are publishing is very rich and contains many more phenomena than the ones we've reported on. This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to access our data and the various ways we've annotation the data to extract measurements from subpopulations of cells and/or different regions of interest in the tissue. We hope this code helps facilitate further analysis from researchers interested in expanding on our work or, even better, asking new questions entirely!
 
-&nbsp;
 
 ## Cell tracking
 
-After segmenting cells [(see Part 2 below)](#part-1-segmentation-and-tracking-seg_tracking_driverm), we use the [munkres assignment algorithm](#step-4-tracking---hungarian-munkres-algorithm) to map cells between adjacent time points. Here, we demonstrate how to display a representation of tracked cells via a color mask that uses a unique, random color to label each tracked object.
+After [segmenting cells](#part-1-segmentation-and-tracking-seg_tracking_driverm), we use the [munkres assignment algorithm](#step-4-tracking---hungarian-munkres-algorithm) to map cells between adjacent time points. Here, we demonstrate how to display a representation of tracked cells via a color mask that uses a unique, random color to label each tracked object. This data is available for all four datasets.
 
 ![tracking_example](github_media/tracking.gif)
 
@@ -40,11 +39,15 @@ After segmenting cells [(see Part 2 below)](#part-1-segmentation-and-tracking-se
 
 ## Annotation of cell classes
 
+With cells segmented and tracked, we were able to annotate the identities of photoreceptor cells (R-cells) onto our data manually. Cell classes were easily determined by their unique morphology once they've differentiated on the posterior side of the morphogenetic furrow. These identities were then propegated backwards in time, allowing us to extract measurements of position, topology, and morphology from these cells before they were committed to these fates. This code shows how to access these cell class annotations and color in the cell area corresponding to every instance of a R-cell throughout the duration of the movie. This data is available for all four datasets.
+
 ![precluster_ID_example](github_media/preclusters.gif)
 
 &nbsp;
 
 ## Morphogenetic furrow location
+
+The morphogenetic furrow is the wavefront of differenetiation in this system. As it moves from the posterior to anterior margin of the eye imaginal disc, it triggers a wave of simultaneous cell differentiation and morphological changes. Two scales of patterning happen concurrently in the wake of the morphogenetic furrow: 1) locally, cells lined up in the dorsal-ventral direction on the posterior side of the morphogenetic furrow buckle into hairpin structures and close into multicellular rosettes; these are the first photoreceptor cells to differentiate. 2) each multicellular rosette emerges at the precise location to assimilate into the already established triangular lattice of rosettes on the posterior side of the tissue, thus growing the lattice in a process reminiscent of directional solidification in the crystal manufacturing process. Here, we demonstrate code that allows one to access and plot the location of the morphogenetic furrow at each time point. This data is available for all four datasets.
 
 ![morphogenetic_furrow_location_example](github_media/MF.gif)
 
