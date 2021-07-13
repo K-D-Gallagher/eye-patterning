@@ -1,8 +1,9 @@
-# eye-morphogenesis [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# eye-patterning [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 &nbsp;
 
 ## Table of Contents
+- [Getting started](#getting-started)
 - [Section 1: Guide for ANALYSIS_DRIVER.m](#section-1-Guide-for-analysis_driverm)
     - [Cell tracking](#cell-tracking)
     - [Annotation of cell classes](#annotation-of-cell-classes)
@@ -19,6 +20,14 @@
     - [Manual corrections - using the GUI](#manual-corrections---using-the-gui)
 - [Installation](#installation)
 - [License](#license)
+
+&nbsp;
+&nbsp;
+&nbsp;
+
+# Getting started
+
+
 
 &nbsp;
 &nbsp;
