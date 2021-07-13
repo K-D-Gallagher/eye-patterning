@@ -79,7 +79,7 @@ We define columns of ommatidia as being parallel to the morphogenetic furrow. In
 
 ## Ommatidial lattice annotation - row annotation
 
-Similar to column identity, we can also define rows of ommatidia as being perpendicular to the morphogenetic furrow. Note how the movement of ommatidia in adjacent rows inside the morphogenetic is antiphase: i.e. one row will flow with the morphogenetic furrow, while the other will become stationary and assimilate into the ommatidial lattice posterior of the morphogeneticu furrow. Here, we demonstrate how to color in R-cells according to their row identity within the ommatidial lattice.
+Similar to column identity, we can also define rows of ommatidia as being perpendicular to the morphogenetic furrow. Here, we demonstrate how to color in R-cells according to their row identity within the ommatidial lattice.
 
 ![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
