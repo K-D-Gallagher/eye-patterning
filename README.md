@@ -101,7 +101,7 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 
 # Section 2: SEG_TRACKING_DRIVER.m
 
-The goal of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately culminate some manual correction. Improving imaging quality can save a lot of time in data processing: higher resolution, better signal-to-noise greatly improve segmentation quality. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
+The goal of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification (please message me if you do), this will unfortunately involve some manual correction. Improving imaging quality can save a lot of time in data processing: higher resolution, better signal-to-noise greatly improve segmentation quality. This driver file brings you from initial pixel classification using an external program (Ilastik or our custom trained CNN) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
 ## Read in raw images
 
@@ -133,9 +133,9 @@ Example of pixel classification output from Ilastik:
 
 &nbsp;
 
-### Option 2: U-Net (or any other method of pixel classification that saves the result as a binary image)
+### Option 2: CNN (or any other method of pixel classification that saves the result as a binary image)
 
-The second option for pixel classification is using a convolutional neural network (CNN) or any other pixel classification workflow that creates binary images where 0s are pixels classified as background or cell interiors and 1s are pixels classified as being a cell edge.
+The second option for pixel classification is using a convolutional neural network (CNN). We trained a [CNN model](https://github.com/K-D-Gallagher/CNN-pixel-classification) for pixel classification of epithelial tissues with cell edges labeled with fluorescent protein fusion tags, which have been collected with fluorescence confocal microscopy and projected into 2D. Our CNN transforms images into a binary images where 0s are pixels classified as background / cell interiors and 1s are pixels classified as being a cell edge.
 
 ![u-net](github_media/U-Net.gif)
 
