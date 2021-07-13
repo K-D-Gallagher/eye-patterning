@@ -3,7 +3,7 @@
 ## Table of Contents
 - [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
 - [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
-- [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification-&-segmentation)
+- [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification-segmentation)
 - [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells-watershed-transform-&-bwlabel)
 - [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking-hungarian-munkres-algorithm)
 - [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections-using-the-GUI)
