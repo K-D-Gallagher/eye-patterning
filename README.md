@@ -89,7 +89,7 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 
 # PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
 
-The goal of this driver file is to segment and track images. The intention of this driver file is to both document the pipeline we used to process data for our publication and also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately involve some manual correction. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
+The goal of this driver file is to segment and track images. The intention of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately involve some manual correction. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
 &nbsp;
 
