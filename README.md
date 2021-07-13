@@ -71,7 +71,7 @@ The ommatidial lattice emerges concurrently with the cell differentiation / loca
 
 ## Ommatidial lattice annotation - column annotation
 
-We define columns of ommatidia as being parallel to the morphogenetic furrow. In the publication, these morphogenetic furrow is oriented vertically with the anterior to the left and posterior to the right. Here, things are rotated 90 degrees and the morphogenetic furrow is horizontal with the anterior towards the bottom and posterior towards the top. Note how cells fated to belong to separate columns ommatidia posterior of the morphogenetic furrow are compressed into overlapping positions along the anterior-posterior axis inside the morphogenetic furrow. Here, we demonstrate how to color in R-cells according to their column identity within the ommatidial lattice.
+We define columns of ommatidia as being parallel to the morphogenetic furrow. In the publication, the morphogenetic furrow is oriented vertically with the anterior to the left and posterior to the right. Here, things are rotated 90 degrees and the morphogenetic furrow is horizontal with the anterior towards the bottom and posterior towards the top. Note how cells fated to belong to separate columns ommatidia posterior of the morphogenetic furrow are compressed into overlapping positions along the anterior-posterior axis inside the morphogenetic furrow. Here, we demonstrate how to color in R-cells according to their column identity within the ommatidial lattice.
 
 ![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
 
@@ -89,22 +89,13 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 
 # PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
 
-The goal of this driver file is to segment and track images. Unless you
-find a way to achieve perfect pixel classification, this will
-unfortunately involve some manual correction. This driver file brings you
-from initial pixel classification using an external program (some options
-are given) through finding and tracking objects in your segmented images
-and using a GUI to discover and correct errors in your segmentation that
-lead to errors in cell tracking.
+The goal of this driver file is to segment and track images. The intention of this driver file is to both document the pipeline we used to process data for our publication and also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately involve some manual correction. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
 &nbsp;
 
 ## STEP 1: READ IN RAW IMAGES
 
-While we technically will only be making measurements / doing analysis on
-a segmentation mask, it is helpful to view the segmentation mask as an
-overlay on top of the raw images. Therefore, we'll start by loading the
-raw images into MATLAB and storing them in a 3D tensor.
+While we technically will only be making measurements / doing analysis on a segmentation mask, it is helpful to view the segmentation mask as an overlay on top of the raw images. Therefore, we'll start by loading the raw images into MATLAB and storing them in a 3D tensor.
 
 ![raw_images_example](github_media/raw.gif)
 
@@ -112,21 +103,13 @@ raw images into MATLAB and storing them in a 3D tensor.
 
 ## STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
 
-There are two ways of performing pixel classification. Either option is
-completed outside of MATLAB and then loaded in prior to detection of
-cells.
+There are two ways of performing pixel classification. Either option is completed outside of MATLAB and then loaded in prior to detection of cells.
 
 &nbsp;
 
 ### OPTION 1: PIXEL CLASSIFICATION USING ILASTIK
 
-The first option for pixel classification is using the pixel
-classification workflow in Ilastik (ilastik.org), which transforms the
-image from 8-bit space (or whatever bit depth you're in), where pixel
-value represents fluorescence intensity to a new 8-bit space where pixel
-value represents the probability of being either a cell edge or not
-(where 0s represent 100% probability that these pixels are background and
-255s represent 100% probability that these pixels are cell edges).
+The first option for pixel classification is using the pixel classification workflow in Ilastik (ilastik.org), which transforms the image from 8-bit space (or whatever bit depth you're in), where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
 https://www.ilastik.org/documentation/pixelclassification/pixelclassification
 
 &nbsp;
@@ -141,13 +124,9 @@ Example of pixel classification from Ilastik:
 
 &nbsp;
 
-### OPTION 2: U-NET (or any other method of pixel classification that saves
-the result as a binary image)
+### OPTION 2: U-NET (or any other method of pixel classification that saves the result as a binary image)
 
-The second option for pixel classification is using U-NET or any other
-pixel classification workflow that creates binary images where 0s
-are pixels classified as background or cell interiors and 1s are pixels
-classified as being a cell edge.
+The second option for pixel classification is using U-NET or any other pixel classification workflow that creates binary images where 0s are pixels classified as background or cell interiors and 1s are pixels classified as being a cell edge.
 
 ![u-net](github_media/U-Net.gif)
 
@@ -155,36 +134,19 @@ classified as being a cell edge.
 
 ## STEP 3: DETECT CELLS - watershed transform & bwlabel
 
-After transforming our images into a space where 0s represent background
-pixels or cell interior and 1s represent cell edges, we next need to
-detect the location of cells. To do this, we are going to use a watershed
-transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , 
-https://www.mathworks.com/help/images/ref/watershed.html ) to define
-cells and clean up noise from the pixel classification, followed by a
-function called bwlabel that will assign identities to binary objects
-defined using a defined 2D connectivity.
+After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity.
 
 &nbsp;
 
 ## STEP 4: TRACKING - hungarian (munkres) algorithm
 
-Bwlabel gives cells a unique identify for every time point they exist. To
-track cells across time, we must create a map that connects cells between
-adject time points. We will be using the munkres assignment algorithm
-(https://en.wikipedia.org/wiki/Hungarian_algorithm , 
-https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
+Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. We will be using the munkres assignment algorithm (https://en.wikipedia.org/wiki/Hungarian_algorithm , https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
 
 &nbsp;
 
 ## STEP 5: MANUAL CORRECTIONS - using the GUI
 
-Try as we might, there is currently no methodology that can generate
-perfect segmentation. U-Net performed the best out of all methods we
-tested. However, it still had ~0.5% percent error in segmentation that,
-when tracked over 120 time points, compounded to over 10% error in
-tracking! Therefore, we developed a matlab GUI ('segmeter') that uses
-tracking errors to discover and correct the underlying segmentation
-errors. Tutorial video pending.
+Try as we might, there is currently no methodology that can generate perfect segmentation. U-Net performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 10% error in tracking! Therefore, we developed a matlab GUI ('segmeter') that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
 
 &nbsp;
 &nbsp;
