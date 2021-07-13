@@ -1,5 +1,7 @@
 # eye-morphogenesis [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+&nbsp;
+
 ## Table of Contents
 - [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
 - [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
@@ -34,12 +36,15 @@ a segmentation mask, it is helpful to view the segmentation mask as an
 overlay on top of the raw images. Therefore, we'll start by loading the
 raw images into MATLAB and storing them in a 3D tensor.
 
+&nbsp;
 
 ### STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
 
 There are two ways of performing pixel classification. Either option is
 completed outside of MATLAB and then loaded in prior to detection of
 cells.
+
+&nbsp;
 
 OPTION 1: PIXEL CLASSIFICATION USING ILASTIK
 
@@ -52,6 +57,7 @@ value represents the probability of being either a cell edge or not
 255s represent 100% probability that these pixels are cell edges).
 https://www.ilastik.org/documentation/pixelclassification/pixelclassification
 
+&nbsp;
 
 OPTION 2: U-NET (or any other method of pixel classification that saves
 the result as a binary image)
@@ -61,6 +67,7 @@ pixel classification workflow that creates binary images where 0s
 are pixels classified as background or cell interiors and 1s are pixels
 classified as being a cell edge.
 
+&nbsp;
 
 ### STEP 3: DETECT CELLS - watershed transform & bwlabel
 
@@ -73,6 +80,7 @@ cells and clean up noise from the pixel classification, followed by a
 function called bwlabel that will assign identities to binary objects
 defined using a defined 2D connectivity.
 
+&nbsp;
 
 ### STEP 4: TRACKING - hungarian (munkres) algorithm
 
@@ -82,6 +90,7 @@ adject time points. We will be using the munkres assignment algorithm
 (https://en.wikipedia.org/wiki/Hungarian_algorithm , 
 https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
 
+&nbsp;
 
 ### STEP 5: MANUAL CORRECTIONS - using the GUI
 
@@ -93,8 +102,9 @@ tracking! Therefore, we developed a matlab GUI ('segmeter') that uses
 tracking errors to discover and correct the underlying segmentation
 errors. Tutorial video pending.
 
-
-
+&nbsp;
+&nbsp;
+&nbsp;
 
 ## PART 2: ANALYSIS (ANALYSIS_DRIVER.M)
 
@@ -103,6 +113,7 @@ access our data and the various piece of data annotation we relied on
 for our analysis. We hope this provides the foundation for future analysis
 and exploration of the data.
 
+&nbsp;
 
 Cell tracking
 
@@ -110,40 +121,51 @@ Cells are
 
 ![tracking_example](github_media/tracking.gif)
 
+&nbsp;
 
 Annotation of ommatidial preclusters and photoreceptor classes
 
 ![precluster_ID_example](github_media/preclusters.gif)
 
---------------------------------------------------------------------------
+&nbsp;
+
 Morphogenetic furrow location
 --------------------------------------------------------------------------
 
 ![morphogenetic_furrow_location_example](github_media/MF.gif)
 
---------------------------------------------------------------------------
+&nbsp;
+
+
 Cell velocity
 --------------------------------------------------------------------------
 
 ![cell_velocity_example](github_media/velocity.gif)
 
---------------------------------------------------------------------------
+&nbsp;
+
 Ommatidial lattice column annotation
 --------------------------------------------------------------------------
 
 ![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
 
---------------------------------------------------------------------------
+&nbsp;
+
 Ommatidial lattice row annotation
 --------------------------------------------------------------------------
 
 ![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
---------------------------------------------------------------------------
+&nbsp;
+
 Ommatidial lattice annotation
 --------------------------------------------------------------------------
 
 ![ommatidial_lattice_annotation_example](github_media/lattice.gif)
+
+&nbsp;
+&nbsp;
+&nbsp;
 
 
 ## Installation
