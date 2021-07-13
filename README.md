@@ -3,7 +3,7 @@
 &nbsp;
 
 ## Table of Contents
-- [PART 1: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
+- [Section 1: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
     - [Cell tracking](#cell-tracking)
     - [Annotation of cell classes](#annotation-of-cell-classes)
     - [Morphogenetic furrow location](#morphogenetic-furrow-location)
@@ -11,12 +11,12 @@
     - [Ommatidial lattice annotation](#ommatidial-lattice-annotation)
     - [Ommatidial lattice annotation - column annotation](#ommatidial-lattice-annotation---column-annotation)
     - [Ommatidial lattice annotation - row annotation](#ommatidial-lattice-annotation---row-annotation)
-- [PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
-    - [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
-    - [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification--segmentation)
-    - [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells---watershed-transform--bwlabel)
-    - [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking---hungarian-munkres-algorithm)
-    - [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections---using-the-gui)
+- [Section 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
+    - [Read in raw images](#read-in-raw-images)
+    - [Pixel classification & segmentation](#pixel-classification--segmentation)
+    - [Detect cells - watershed transform & bwlabel](#detect-cells---watershed-transform--bwlabel)
+    - [Tracking - hungarian (munkres) algorithm](#tracking---hungarian-munkres-algorithm)
+    - [Manual corrections - using the GUI](#manual-corrections---using-the-gui)
 - [Installation](#installation)
 - [License](#license)
 
@@ -24,7 +24,7 @@
 &nbsp;
 &nbsp;
 
-# PART 1: ANALYSIS (ANALYSIS_DRIVER.M)
+# Section 1: Analysis (ANALYSIS_DRIVER.M)
 
 The data we are publishing is very rich and contains many more phenomena than the ones we've reported on. This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to access our data and the various ways we've annotation the data to extract measurements from subpopulations of cells and/or different regions of interest in the tissue. We hope this code helps facilitate further analysis from researchers interested in expanding on our work or, even better, asking new questions entirely!
 
@@ -87,13 +87,13 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 &nbsp;
 &nbsp;
 
-# PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
+# Section 2: Segmentation and tracking (SEG_TRACKING_DRIVER.M)
 
 The goal of this driver file is to segment and track images. The intention of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately involve some manual correction. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
 &nbsp;
 
-## STEP 1: READ IN RAW IMAGES
+## Read in raw images
 
 While we technically will only be making measurements / doing analysis on a segmentation mask, it is helpful to view the segmentation mask as an overlay on top of the raw images. Therefore, we'll start by loading the raw images into MATLAB and storing them in a 3D tensor.
 
@@ -101,13 +101,13 @@ While we technically will only be making measurements / doing analysis on a segm
 
 &nbsp;
 
-## STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
+## Pixel classification & segmentation
 
 There are two ways of performing pixel classification. Either option is completed outside of MATLAB and then loaded in prior to detection of cells.
 
 &nbsp;
 
-### OPTION 1: PIXEL CLASSIFICATION USING ILASTIK
+### Option 1: Pixel classification using Ilastik
 
 The first option for pixel classification is using the pixel classification workflow in Ilastik (ilastik.org), which transforms the image from 8-bit space (or whatever bit depth you're in), where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
 https://www.ilastik.org/documentation/pixelclassification/pixelclassification
@@ -124,7 +124,7 @@ Example of pixel classification from Ilastik:
 
 &nbsp;
 
-### OPTION 2: U-NET (or any other method of pixel classification that saves the result as a binary image)
+### Option 2: U-Net (or any other method of pixel classification that saves the result as a binary image)
 
 The second option for pixel classification is using U-NET or any other pixel classification workflow that creates binary images where 0s are pixels classified as background or cell interiors and 1s are pixels classified as being a cell edge.
 
@@ -132,7 +132,7 @@ The second option for pixel classification is using U-NET or any other pixel cla
 
 &nbsp;
 
-## STEP 3: DETECT CELLS - watershed transform & bwlabel
+## Detect cells - watershed transform & bwlabel
 
 After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity.
 
@@ -140,7 +140,7 @@ After transforming our images into a space where 0s represent background pixels 
 
 &nbsp;
 
-## STEP 4: TRACKING - hungarian (munkres) algorithm
+## Tracking - hungarian (munkres) algorithm
 
 Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. We will be using the munkres assignment algorithm (https://en.wikipedia.org/wiki/Hungarian_algorithm , https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
 
@@ -148,7 +148,7 @@ Bwlabel gives cells a unique identify for every time point they exist. To track 
 
 &nbsp;
 
-## STEP 5: MANUAL CORRECTIONS - using the GUI
+## Manual corrections - using the GUI
 
 Try as we might, there is currently no methodology that can generate perfect segmentation. U-Net performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 10% error in tracking! Therefore, we developed a matlab GUI ('segmeter') that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
 
