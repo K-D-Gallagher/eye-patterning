@@ -36,6 +36,8 @@ a segmentation mask, it is helpful to view the segmentation mask as an
 overlay on top of the raw images. Therefore, we'll start by loading the
 raw images into MATLAB and storing them in a 3D tensor.
 
+![raw_images_example](github_media/raw.gif)
+
 &nbsp;
 
 ## STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
@@ -59,6 +61,16 @@ https://www.ilastik.org/documentation/pixelclassification/pixelclassification
 
 &nbsp;
 
+Example of pixel classification process in Ilastik:
+![ilastik_demo](github_media/ilastik_demo.gif)
+
+&nbsp;
+
+Example of pixel classification from Ilastik:
+![ilastik_seg_example](github_media/ilastik_seg.gif)
+
+&nbsp;
+
 ### OPTION 2: U-NET (or any other method of pixel classification that saves
 the result as a binary image)
 
@@ -66,6 +78,8 @@ The second option for pixel classification is using U-NET or any other
 pixel classification workflow that creates binary images where 0s
 are pixels classified as background or cell interiors and 1s are pixels
 classified as being a cell edge.
+
+![u-net](github_media/U-Net.gif)
 
 &nbsp;
 
