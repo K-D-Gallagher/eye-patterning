@@ -3,7 +3,7 @@
 &nbsp;
 
 ## Table of Contents
-- [Section 1: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
+- [Section 1: Analysis (ANALYSIS_DRIVER.M)](#section-1-analysis-analysis_driverm)
     - [Cell tracking](#cell-tracking)
     - [Annotation of cell classes](#annotation-of-cell-classes)
     - [Morphogenetic furrow location](#morphogenetic-furrow-location)
@@ -11,7 +11,7 @@
     - [Ommatidial lattice annotation](#ommatidial-lattice-annotation)
     - [Ommatidial lattice annotation - column annotation](#ommatidial-lattice-annotation---column-annotation)
     - [Ommatidial lattice annotation - row annotation](#ommatidial-lattice-annotation---row-annotation)
-- [Section 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
+- [Section 2: Segmentation and tracking (SEG_TRACKING_DRIVER.M)](#section-2-segmentation-and-tracking-seg_tracking_driverm)
     - [Read in raw images](#read-in-raw-images)
     - [Pixel classification & segmentation](#pixel-classification--segmentation)
     - [Detect cells - watershed transform & bwlabel](#detect-cells---watershed-transform--bwlabel)
