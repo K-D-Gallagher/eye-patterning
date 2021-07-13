@@ -13,6 +13,7 @@ function [ L ] = ilastik_watershed( mem, H, S, G, HM )
     
     L = zeros(size(mem));
     for t = 1:size(mem,3)
+        t
         mem(:,:,t) = imfilter(mem(:,:,t),g);
         cyto = 1 - mem(:,:,t);
         

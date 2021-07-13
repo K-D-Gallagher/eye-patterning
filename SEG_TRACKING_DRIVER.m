@@ -79,7 +79,7 @@
 % when tracked over 120 time points, compounded to over 10% error in
 % tracking! Therefore, we developed a matlab GUI ('segmeter') that uses
 % tracking errors to discover and correct the underlying segmentation
-% errors. Tutorial video pending.
+% errors
 
 
 %%
@@ -138,6 +138,9 @@ implay(raw_images)
 %--------------------------------------------------------------------------
 %--------------------------------------------------------------------------
 
+% NOTE: it is important that 'Label 1' in Ilastik is the cell edges and
+% 'Label 2' is the cell interior / background.
+
 % Ilastik outputs images with probability values for each pixel in the
 % h5 file format.  The following code is an h5 file reader that will read
 % in this format and convert it into a matrix of doubles. It will load in
@@ -167,6 +170,8 @@ implay(ilastik_probabilities)
 % functions, including bwlabel, to apply a watershed transform. Because the
 % default output from bwlabel is called 'L', we'll be sticking with this
 % convention and henceforth call our segmentation mask L.
+
+% this can sometimes take awhile
 
 L = ilastik_watershed(ilastik_probabilities);
 
@@ -415,7 +420,7 @@ raw_images1 = raw_images;
 raw_images2 = ilastik_probabilities;
 
 % if using U-Net
-raw_images2 = seg_mask;
+% raw_images2 = seg_mask;
 
 % open GUI
 segmenter

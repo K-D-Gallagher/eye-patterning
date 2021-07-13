@@ -325,14 +325,6 @@ for t = 1:size(L,3)
         'FaceColor','none',...
         'EdgeColor','yellow',...
         'LineWidth',2)
-    
-    % plot centroid velocity
-   quiver(Velocity(t).x_coordinates,Velocity(t).y_coordinates, ...
-       Velocity(t).x_velocities,Velocity(t).y_velocities ,2,'c')
-    
-    % plot interpolated velocity
-%     quiver(Velocity(t).interp_x_coordinates,Velocity(t).interp_y_coordinates, ...
-%         Velocity(t).interp_x_velocities,Velocity(t).interp_y_velocities ,2,'c')
 
     drawnow
     
