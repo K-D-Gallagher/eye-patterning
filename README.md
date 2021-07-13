@@ -89,7 +89,7 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 
 # Section 2: Guide for SEG_TRACKING_DRIVER.m
 
-The goal of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately culminate some manual correction. A word for the wise: improving imaging quality can save a lot of time in data processing: higher resolution, better signal-to-noise greatly improve segmentation quality. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
+The goal of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately culminate some manual correction. Improving imaging quality can save a lot of time in data processing: higher resolution, better signal-to-noise greatly improve segmentation quality. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
 ## Read in raw images
 
@@ -101,18 +101,17 @@ While we technically will only be making measurements / doing analysis on a segm
 
 ## Pixel classification & segmentation
 
-There are two ways of performing pixel classification. Either option is completed outside of MATLAB and then loaded in prior to detection of cells.
-
-&nbsp;
+There are two ways of performing pixel classification. Both are external to MATLAB and should be completed before use of this driver file.
 
 ### Option 1: Pixel classification using Ilastik
 
-The first option for pixel classification is using the pixel classification workflow in Ilastik (ilastik.org), which transforms the image from 8-bit space (or whatever bit depth you're in), where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
-https://www.ilastik.org/documentation/pixelclassification/pixelclassification
+The first option for pixel classification is the [Pixel Classification workflow](https://www.ilastik.org/documentation/pixelclassification/pixelclassification) in Ilastik. The pixel classification workflow uses a random forest classifier to develop a model to differentiate between a chosen number of feature classes that you can train in real time using graphical feedback about what the model is thinking. The benefit of this option is that random forest classifiers learn very rapidly, are easy to train, and do not require much training data. The drawback is they become highly overfit to their training data and do not generalize well to new datasets - i.e. you'll need to train a new model for every dataset you want to process.
+
+To process data for use in our pipeline, you will need to create two labels in Ilastik: the first is used to label cell edges and the second labels everything else (cell interiors and background pixels, if you have blank padding around your FOV). Using the pixel classification workflow in Ilastik will transform your image from a space where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
 
 &nbsp;
 
-Example of pixel classification process in Ilastik:
+Example of training a pixel classification model in Ilastik. Check out their very useful and detailed [documentation](https://www.ilastik.org/documentation/pixelclassification/pixelclassification).
 ![ilastik_demo](github_media/ilastik_demo.gif)
 
 &nbsp;
