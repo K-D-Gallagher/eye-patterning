@@ -107,7 +107,7 @@ There are two ways of performing pixel classification. Both are external to MATL
 
 The first option for pixel classification is the [Pixel Classification workflow](https://www.ilastik.org/documentation/pixelclassification/pixelclassification) in Ilastik. The pixel classification workflow uses a random forest classifier to develop a model to differentiate between a chosen number of feature classes that you can train in real time using graphical feedback about what the model is thinking. The benefit of this option is that random forest classifiers learn very rapidly, are easy to train, and do not require much training data. The drawback is they become highly overfit to their training data and do not generalize well to new datasets - i.e. you'll need to train a new model for every dataset you want to process.
 
-To process data for use in our pipeline, you will need to create two labels in Ilastik: the first is used to label cell edges and the second labels everything else (cell interiors and background pixels, if you have blank padding around your FOV). Using the pixel classification workflow in Ilastik will transform your image from a space where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
+In order to be compatible with our pipeline, you will need to create two labels in Ilastik: the first is used to label cell edges and the second labels everything else (cell interiors and background pixels, if you have blank padding around your FOV). Using the pixel classification workflow in Ilastik will transform your image from a space where pixel value represents fluorescence intensity to a new 8-bit space where pixel value represents the probability of being either a cell edge or not (where 0s represent 100% probability that these pixels are background and 255s represent 100% probability that these pixels are cell edges).
 
 &nbsp;
 
@@ -116,14 +116,14 @@ Example of training a pixel classification model in Ilastik. Check out their ver
 
 &nbsp;
 
-Example of pixel classification from Ilastik:
+Example of pixel classification output from Ilastik:
 ![ilastik_seg_example](github_media/ilastik_seg.gif)
 
 &nbsp;
 
 ### Option 2: U-Net (or any other method of pixel classification that saves the result as a binary image)
 
-The second option for pixel classification is using U-NET or any other pixel classification workflow that creates binary images where 0s are pixels classified as background or cell interiors and 1s are pixels classified as being a cell edge.
+The second option for pixel classification is using a convolutional neural network (CNN) or any other pixel classification workflow that creates binary images where 0s are pixels classified as background or cell interiors and 1s are pixels classified as being a cell edge.
 
 ![u-net](github_media/U-Net.gif)
 
