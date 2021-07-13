@@ -4,12 +4,19 @@
 
 ## Table of Contents
 - [PART 1: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
+    - [Cell tracking](#cell-tracking)
+    - [Annotation of cell classes](#annotation-of-cell-classes)
+    - [Morphogenetic furrow location](#morphogenetic-furrow-location)
+    - [Cell centroid velocity field](#cell-centroid-velocity-field)
+    - [Ommatidial lattice annotation](#ommatidial-lattice-annotation)
+    - [Ommatidial lattice annotation - column annotation](#ommatidial-lattice-annotation---column-annotation)
+    - [Ommatidial lattice annotation - row annotation](#ommatidial-lattice-annotation---row-annotation)
 - [PART 2: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
     - [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
-- [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification--segmentation)
-- [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells---watershed-transform--bwlabel)
-- [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking---hungarian-munkres-algorithm)
-- [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections---using-the-gui)
+    - [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification--segmentation)
+    - [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells---watershed-transform--bwlabel)
+    - [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking---hungarian-munkres-algorithm)
+    - [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections---using-the-gui)
 - [Installation](#installation)
 - [License](#license)
 
@@ -31,7 +38,7 @@ After segmenting cells [(see Part 2 below)](#part-1-segmentation-and-tracking-se
 
 &nbsp;
 
-Annotation of ommatidial preclusters and photoreceptor classes
+## Annotation of cell classes
 
 ![precluster_ID_example](github_media/preclusters.gif)
 
@@ -43,28 +50,27 @@ Annotation of ommatidial preclusters and photoreceptor classes
 
 &nbsp;
 
-
-## Cell velocity
+## Cell centroid velocity field
 
 ![cell_velocity_example](github_media/velocity.gif)
-
-&nbsp;
-
-## Ommatidial lattice column annotation
-
-![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
-
-&nbsp;
-
-## Ommatidial lattice row annotation
-
-![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
 &nbsp;
 
 ## Ommatidial lattice annotation
 
 ![ommatidial_lattice_annotation_example](github_media/lattice.gif)
+
+&nbsp;
+
+## Ommatidial lattice annotation - column annotation
+
+![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
+
+&nbsp;
+
+## Ommatidial lattice annotation - row annotation
+
+![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
 &nbsp;
 &nbsp;
