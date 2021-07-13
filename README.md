@@ -1,7 +1,5 @@
 # eye-patterning [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-&nbsp;
-
 ## Table of Contents
 - [Getting started](#getting-started)
 - [Section 1: Guide for ANALYSIS_DRIVER.m](#section-1-Guide-for-analysis_driverm)
