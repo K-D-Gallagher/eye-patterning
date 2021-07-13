@@ -136,11 +136,15 @@ The second option for pixel classification is using U-NET or any other pixel cla
 
 After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity.
 
+![watershed_example](github_media/watershed_transform.png) https://commons.wikimedia.org/wiki/File:Watershed_transform_-_rain_interpretation.svg
+
 &nbsp;
 
 ## STEP 4: TRACKING - hungarian (munkres) algorithm
 
 Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. We will be using the munkres assignment algorithm (https://en.wikipedia.org/wiki/Hungarian_algorithm , https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
+
+![munkres_example](github_media/tracking_im.png)
 
 &nbsp;
 
