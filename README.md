@@ -16,7 +16,6 @@
     - [Detect cells - watershed transform & bwlabel](#detect-cells---watershed-transform--bwlabel)
     - [Tracking - hungarian (munkres) algorithm](#tracking---hungarian-munkres-algorithm)
     - [Manual corrections - using the GUI](#manual-corrections---using-the-gui)
-- [Installation](#installation)
 - [License](#license)
 
 &nbsp;
@@ -25,7 +24,11 @@
 
 # Getting started
 
+We recommend using [MATLAB R2018a](https://www.mathworks.com/products/new_products/release2018a.html). The [Image Processing Toolkit](https://www.mathworks.com/products/image.html) is required. Most of the code will run fine with newer versions of MATLAB. However, the GUI for manually correcting segmentation/tracking ('segmenter.m'/'segmenter.fig') was developed using GUIDE, which is becoming deprecated in newer versions of MATLAB.
 
+Data can be downloaded [here](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). Each dataset is stored as a matlab workspace that contains all the necessary information to run each block of code in 'ANALYSIS_DRIVER.m': Wildtype Replicate 1 can be found in 'wildtype1_data.mat', Wildtype Replicate 2 in 'wildtype2_data.mat', the strong _scabrous_ mutant in 'scabrous_strongMutant_data.mat', and the _weak_ scabrous mutant 'scabrous_weakMutant_data.mat'. Load the .mat files into MATLAB workspace and then use the driver file to get started with your analysis. Note, only Wildtype Replicate 1 contains the necessary annotations to run the sections pertaining to the ommatidial lattice annotation.
+
+Additionally, the raw images and corresponding segmentation masks are also [available for download](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). However, note that our tracking results cannot be perfectly replicated using the munkres assignment algorithm we used for cell tracking because we implemented manual changes to cell tracking via the 'segmenter' GUI. The exact tracking information we used in the publication is contained within the .mat files corresponding to each dataset.
 
 &nbsp;
 &nbsp;
@@ -72,7 +75,7 @@ The velocity field is stored in a matlab struct called 'Velocity' containing a s
 
 ## Ommatidial lattice annotation
 
-The ommatidial lattice emerges concurrently with the cell differentiation / local morphological changes triggered by passage of the morphogenetic furrow. A triangular lattice is dual to a hexoganl lattice, so what we are watching emerge here is the initial nucleation of the final ommatidial lattice, visible on the surface of the adult eye. We've recorded the coordinates of the lattice through a pair of connected matrices - one storing the list of triangles with regard to annotated R8s ('lattice_edges) and another describing the position of these points at each time point ('lattice_points_overTime'). This section of 'ANALYSIS_DRIVER.m' demonstrates how to visualize the ommatidial lattice, defined using the centroids of the R8 class photoreceptor cells, using matlab's patch function.
+The ommatidial lattice emerges concurrently with the cell differentiation / local morphological changes triggered by passage of the morphogenetic furrow. A triangular lattice is dual to a hexoganl lattice, so what we are watching emerge here is the initial nucleation of the final ommatidial lattice, visible on the surface of the adult eye. We've recorded the coordinates of the lattice through a pair of connected matrices - one storing the list of triangles with regard to annotated R8s ('lattice_edges') and another describing the position of these points at each time point ('lattice_points_overTime'). This section of 'ANALYSIS_DRIVER.m' demonstrates how to visualize the ommatidial lattice, defined using the centroids of the R8 class photoreceptor cells, using matlab's patch function.
 
 ![ommatidial_lattice_annotation_example](github_media/lattice.gif)
 
@@ -160,11 +163,6 @@ Try as we might, there is currently no methodology that can generate perfect seg
 
 &nbsp;
 &nbsp;
-&nbsp;
-
-# Installation
-We recommend using MATLAB R2018a or newer. We have not tested our code with older versions of MATLAB. This code additionally requires MATLAB's Image Processing Toolbox.
-
 &nbsp;
 
 # License
