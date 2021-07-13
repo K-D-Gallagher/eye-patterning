@@ -2,6 +2,11 @@
 
 ## Table of Contents
 - [PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)](#part-1-segmentation-and-tracking-seg_tracking_driverm)
+- [STEP 1: READ IN RAW IMAGES](#step-1-read-in-raw-images)
+- [STEP 2: PIXEL CLASSIFICATION & SEGMENTATION](#step-2-pixel-classification-&-segmentation)
+- [STEP 3: DETECT CELLS - watershed transform & bwlabel](#step-3-detect-cells-watershed-transform-&-bwlabel)
+- [STEP 4: TRACKING - hungarian (munkres) algorithm](#step-4-tracking-hungarian-munkres-algorithm)
+- [STEP 5: MANUAL CORRECTIONS - using the GUI](#step-5-manual-corrections-using-the-GUI)
 - [PART 2: ANALYSIS (ANALYSIS_DRIVER.M)](#part-2-analysis-analysis_driverm)
 - [Installation](#installation)
 - [License](#license)
@@ -18,11 +23,9 @@ The goal of this driver file is to segment and track images. Unless you
 find a way to achieve perfect pixel classification, this will
 unfortunately involve some manual correction. This driver file brings you
 from initial pixel classification using an external program (some options
-are given) through tracking objects in your segmented images and using a
-GUI to discover and correct errors in your segmentation that lead to
-errors in cell tracking. Once you've segmentation errors and can track
-your cells-of-interest throughout the course of your movie, you can move
-on to analysis.
+are given) through finding and tracking objects in your segmented images
+and using a GUI to discover and correct errors in your segmentation that
+lead to errors in cell tracking.
 
 --------------------------------------------------------------------------
 STEP 1: READ IN RAW IMAGES
@@ -113,47 +116,49 @@ and exploration of the data.
 Cell tracking
 --------------------------------------------------------------------------
 
-![tracking_example](github_media/tracking.gif).
+Cells are
+
+![tracking_example](github_media/tracking.gif)
 
 --------------------------------------------------------------------------
 Annotation of ommatidial preclusters and photoreceptor classes
 --------------------------------------------------------------------------
 
-![precluster_ID_example](github_media/preclusters.gif).
+![precluster_ID_example](github_media/preclusters.gif)
 
 --------------------------------------------------------------------------
 Morphogenetic furrow location
 --------------------------------------------------------------------------
 
-![morphogenetic_furrow_location_example](github_media/MF.gif).
+![morphogenetic_furrow_location_example](github_media/MF.gif)
 
 --------------------------------------------------------------------------
 Cell velocity
 --------------------------------------------------------------------------
 
-![cell_velocity_example](github_media/velocity.gif).
+![cell_velocity_example](github_media/velocity.gif)
 
 --------------------------------------------------------------------------
 Ommatidial lattice column annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_column_annotation_example](github_media/columns.gif).
+![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
 
 --------------------------------------------------------------------------
 Ommatidial lattice row annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_row_annotation_example](github_media/rows.gif).
+![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
 --------------------------------------------------------------------------
 Ommatidial lattice annotation
 --------------------------------------------------------------------------
 
-![ommatidial_lattice_annotation_example](github_media/lattice.gif).
+![ommatidial_lattice_annotation_example](github_media/lattice.gif)
 
 
 ## Installation
-We recommend using MATLAB R2018a or newer. Code has not been tested with older version of MATLAB. This code requires installation of the Image Processing Toolbox.
+We recommend using MATLAB R2018a or newer. We have not tested our code with older versions of MATLAB. This code additionally requires MATLAB's Image Processing Toolbox.
 
 ## License
 The MIT License (MIT)
