@@ -11,13 +11,10 @@
 - [Installation](#installation)
 - [License](#license)
 
---------------------------------------------------------------------------
---------------------------------------------------------------------------
---------------------------------------------------------------------------
+
+
+
 ## PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
---------------------------------------------------------------------------
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 
 The goal of this driver file is to segment and track images. Unless you
 find a way to achieve perfect pixel classification, this will
@@ -27,18 +24,16 @@ are given) through finding and tracking objects in your segmented images
 and using a GUI to discover and correct errors in your segmentation that
 lead to errors in cell tracking.
 
---------------------------------------------------------------------------
-STEP 1: READ IN RAW IMAGES
---------------------------------------------------------------------------
+
+### STEP 1: READ IN RAW IMAGES
 
 While we technically will only be making measurements / doing analysis on
 a segmentation mask, it is helpful to view the segmentation mask as an
 overlay on top of the raw images. Therefore, we'll start by loading the
 raw images into MATLAB and storing them in a 3D tensor.
 
---------------------------------------------------------------------------
-STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
---------------------------------------------------------------------------
+
+### STEP 2: PIXEL CLASSIFICATION & SEGMENTATION
 
 There are two ways of performing pixel classification. Either option is
 completed outside of MATLAB and then loaded in prior to detection of
@@ -64,9 +59,8 @@ pixel classification workflow that creates binary images where 0s
 are pixels classified as background or cell interiors and 1s are pixels
 classified as being a cell edge.
 
---------------------------------------------------------------------------
-STEP 3: DETECT CELLS - watershed transform & bwlabel
---------------------------------------------------------------------------
+
+### STEP 3: DETECT CELLS - watershed transform & bwlabel
 
 After transforming our images into a space where 0s represent background
 pixels or cell interior and 1s represent cell edges, we next need to
@@ -77,9 +71,8 @@ cells and clean up noise from the pixel classification, followed by a
 function called bwlabel that will assign identities to binary objects
 defined using a defined 2D connectivity.
 
---------------------------------------------------------------------------
-STEP 4: TRACKING - hungarian (munkres) algorithm
---------------------------------------------------------------------------
+
+### STEP 4: TRACKING - hungarian (munkres) algorithm
 
 Bwlabel gives cells a unique identify for every time point they exist. To
 track cells across time, we must create a map that connects cells between
@@ -87,9 +80,8 @@ adject time points. We will be using the munkres assignment algorithm
 (https://en.wikipedia.org/wiki/Hungarian_algorithm , 
 https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
 
---------------------------------------------------------------------------
-STEP 5: MANUAL CORRECTIONS - using the GUI
---------------------------------------------------------------------------
+
+### STEP 5: MANUAL CORRECTIONS - using the GUI
 
 Try as we might, there is currently no methodology that can generate
 perfect segmentation. U-Net performed the best out of all methods we
@@ -99,30 +91,25 @@ tracking! Therefore, we developed a matlab GUI ('segmeter') that uses
 tracking errors to discover and correct the underlying segmentation
 errors. Tutorial video pending.
 
---------------------------------------------------------------------------
---------------------------------------------------------------------------
---------------------------------------------------------------------------
+
+
+
 ## PART 2: ANALYSIS (ANALYSIS_DRIVER.M)
---------------------------------------------------------------------------
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 
 This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to 
 access our data and the various piece of data annotation we relied on
 for our analysis. We hope this provides the foundation for future analysis
 and exploration of the data.
 
---------------------------------------------------------------------------
+
 Cell tracking
---------------------------------------------------------------------------
 
 Cells are
 
 ![tracking_example](github_media/tracking.gif)
 
---------------------------------------------------------------------------
+
 Annotation of ommatidial preclusters and photoreceptor classes
---------------------------------------------------------------------------
 
 ![precluster_ID_example](github_media/preclusters.gif)
 
