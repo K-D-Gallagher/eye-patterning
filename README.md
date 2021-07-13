@@ -131,7 +131,7 @@ The second option for pixel classification is using a convolutional neural netwo
 
 ## Detect cells - watershed transform & bwlabel
 
-After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity.
+After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to use this information to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity. This is a very standard workflow for segmentation and object detection in matlab.
 
 ![watershed_example](github_media/watershed_transform.png) https://commons.wikimedia.org/wiki/File:Watershed_transform_-_rain_interpretation.svg
 
@@ -139,7 +139,7 @@ After transforming our images into a space where 0s represent background pixels 
 
 ## Tracking - hungarian (munkres) algorithm
 
-Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. We will be using the munkres assignment algorithm (https://en.wikipedia.org/wiki/Hungarian_algorithm , https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm ). 
+Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. To do this, we will be using an efficient [matlab implementation](https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm) of the [munkres assignment algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm). The munkres assignment algorithm works very well for tracking epithelial cells if there is accurate segmentation. Inaccurate segmentation makes the task of matching objects between two time points a mess. Therefore, the accuracy of segmentation and tracking are closely related.
 
 ![munkres_example](github_media/tracking_im.png)
 
@@ -147,7 +147,7 @@ Bwlabel gives cells a unique identify for every time point they exist. To track 
 
 ## Manual corrections - using the GUI
 
-Try as we might, there is currently no methodology that can generate perfect segmentation. U-Net performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 10% error in tracking! Therefore, we developed a matlab GUI ('segmeter') that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
+Try as we might, there is currently no methodology that can generate perfect segmentation. CNNs performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 10% error in tracking! Therefore, we developed a matlab GUI (segmeter.m/segmenter.fig) that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
 
 &nbsp;
 &nbsp;
