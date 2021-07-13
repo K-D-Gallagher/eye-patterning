@@ -38,7 +38,7 @@ The data we are publishing is very rich and contains many more phenomena than th
 
 ## Cell tracking
 
-After [segmenting cells](#part-1-segmentation-and-tracking-seg_tracking_driverm), we use the [munkres assignment algorithm](#step-4-tracking---hungarian-munkres-algorithm) to map cells between adjacent time points. This is prerequisite before any additional analysis can be completed. Here, we demonstrate how to display a representation of tracked cells via a color mask that uses a unique, random color to label each tracked object.
+After [segmenting cells](#part-1-segmentation-and-tracking-seg_tracking_driverm), we use the [munkres assignment algorithm](#step-4-tracking---hungarian-munkres-algorithm) to map cells between adjacent time points. This is prerequisite before any additional analysis can be completed. This section of 'ANALYSIS_DRIVER.m' demonstrates how to display a representation of tracked cells via a color mask that uses a unique, random color to label each tracked object.
 
 ![tracking_example](github_media/tracking.gif)
 
@@ -46,7 +46,7 @@ After [segmenting cells](#part-1-segmentation-and-tracking-seg_tracking_driverm)
 
 ## Annotation of cell classes
 
-With cells segmented and tracked, we were able to annotate the identities of photoreceptor cells (R-cells) onto our data manually. Cell classes were easily determined by their unique morphology once they've differentiated on the posterior side of the morphogenetic furrow. These identities were then propegated backwards in time, allowing us to extract measurements of position, topology, and morphology from these cells before they were committed to these fates. This code shows how to access these cell class annotations and color in the cell area corresponding to each instance of a R-cell throughout the duration of the movie.
+With cells segmented and tracked, we were able to annotate the identities of photoreceptor cells (R-cells) onto our data manually. Cell classes were easily determined by their unique morphology once they've differentiated on the posterior side of the morphogenetic furrow. These identities were then propegated backwards in time, allowing us to extract measurements of position, topology, and morphology from these cells before they were committed to these fates. This section of 'ANALYSIS_DRIVER.m' demonstrates how to access these cell class annotations and color in the cell area corresponding to each instance of a R-cell throughout the duration of the movie.
 
 ![precluster_ID_example](github_media/preclusters.gif)
 
@@ -54,7 +54,7 @@ With cells segmented and tracked, we were able to annotate the identities of pho
 
 ## Morphogenetic furrow location
 
-The morphogenetic furrow is the wavefront of differenetiation in this system. As it moves from the posterior to anterior margin of the eye imaginal disc, it triggers a wave of simultaneous cell differentiation and morphological changes. The position of the morphogenetic furrow is stored in a vector called 'furrow_position' that contains a value for every timepoint. This value refers to the position of the morphogenetic furrow, in pixels, along the anterior-posterior axis. Here, we demonstrate code that allows you to access and plot the location of the morphogenetic furrow on top of each frame of the movie.
+The morphogenetic furrow is the wavefront of differenetiation in this system. As it moves from the posterior to anterior margin of the eye imaginal disc, it triggers a wave of simultaneous cell differentiation and morphological changes. The position of the morphogenetic furrow is stored in a vector called 'furrow_position' that contains a value for every timepoint. This value refers to the position of the morphogenetic furrow, in pixels, along the anterior-posterior axis. This section of 'ANALYSIS_DRIVER.m' demonstrates how to access and plot the location of the morphogenetic furrow on top of each frame of the movie.
 
 ![morphogenetic_furrow_location_example](github_media/MF.gif)
 
@@ -62,7 +62,9 @@ The morphogenetic furrow is the wavefront of differenetiation in this system. As
 
 ## Cell centroid velocity field
 
-The velocity field is calculated through central displacement of cell centroids over one hour of developmental time (each dataset has a frame rate of 5 minutes, so this is 12 frames of each movie). One hour was found to be the timescale over which deterministic behavior emerged. Using timesteps greater than an hour did not substantial change the behavior/organization of the velocity field, whereas using shorter time steps introduced additional noise to the organization of the velocity field. Note the strong cell flow in the morphogenetic furrow (red line) in the anterior direction (down), organized into an oscillating, periodic pattern. The velocity field is stored in a matlab struct called 'Velocity' containing set of matrices that describe the 1) x centroid coordinates, 2) y centroid coordinates, 3) x velocity components, and 4) y velocity components of the centroid based velocity field. Velocity also contains another set of four matrices that describes an interpolated version of the velocity field with 1µm grid spacing in both the anterior-posterior and dorsal-ventral directions. Here, we demonstrate how to visualize the centroid velocity field using matlab's quiver function, with an option to display the interpolated velocity field instead.
+The velocity field is calculated through central displacement of cell centroids over one hour of developmental time (each dataset has a frame rate of 5 minutes, so this is 12 frames of each movie). One hour was found to be the timescale over which deterministic behavior emerged. Using timesteps greater than an hour did not substantial change the behavior/organization of the velocity field, whereas using shorter time steps introduced additional noise to the organization of the velocity field. Note the strong cell flow in the morphogenetic furrow (red line) in the anterior direction (down), organized into an oscillating, periodic pattern.
+
+The velocity field is stored in a matlab struct called 'Velocity' containing a set of matrices that describe the 1) x centroid coordinates, 2) y centroid coordinates, 3) x velocity components, and 4) y velocity components of the centroid based velocity field. Velocity also contains another set of four matrices that describes an interpolated version of the velocity field with 1µm grid spacing in both the anterior-posterior and dorsal-ventral directions. This section of 'ANALYSIS_DRIVER.m' demonstrates how to visualize the centroid velocity field using matlab's quiver function, with an option to display the interpolated velocity field instead.
 
 ![cell_velocity_example](github_media/velocity.gif)
 
@@ -70,7 +72,7 @@ The velocity field is calculated through central displacement of cell centroids 
 
 ## Ommatidial lattice annotation
 
-The ommatidial lattice emerges concurrently with the cell differentiation / local morphological changes triggered by passage of the morphogenetic furrow. A triangular lattice is dual to a hexoganl lattice, so what we are watching emerge here is the initial nucleation of the final ommatidial lattice, visible on the surface of the adult eye. Here, we demonstrate how to visualize the ommatidial lattice, defined using the centroids of the R8 class photoreceptor cells, using matlab's patch function.
+The ommatidial lattice emerges concurrently with the cell differentiation / local morphological changes triggered by passage of the morphogenetic furrow. A triangular lattice is dual to a hexoganl lattice, so what we are watching emerge here is the initial nucleation of the final ommatidial lattice, visible on the surface of the adult eye. We've recorded the coordinates of the lattice through a pair of connected matrices - one storing the list of triangles with regard to annotated R8s ('lattice_edges) and another describing the position of these points at each time point ('lattice_points_overTime'). This section of 'ANALYSIS_DRIVER.m' demonstrates how to visualize the ommatidial lattice, defined using the centroids of the R8 class photoreceptor cells, using matlab's patch function.
 
 ![ommatidial_lattice_annotation_example](github_media/lattice.gif)
 
@@ -78,7 +80,7 @@ The ommatidial lattice emerges concurrently with the cell differentiation / loca
 
 ## Ommatidial lattice annotation - column annotation
 
-We define columns of ommatidia as being parallel to the morphogenetic furrow. In the publication, the morphogenetic furrow is oriented vertically with the anterior to the left and posterior to the right. Here, things are rotated 90 degrees and the morphogenetic furrow is horizontal with the anterior towards the bottom and posterior towards the top. Note how cells fated to belong to separate columns ommatidia posterior of the morphogenetic furrow are compressed into overlapping positions along the anterior-posterior axis inside the morphogenetic furrow. Here, we demonstrate how to color in R-cells according to their column identity within the ommatidial lattice.
+We define columns of ommatidia as being parallel to the morphogenetic furrow. In the publication, the morphogenetic furrow is oriented vertically with the anterior to the left and posterior to the right. Here, things are rotated 90 degrees and the morphogenetic furrow is horizontal with the anterior towards the bottom and posterior towards the top. Note how cells fated to belong to separate columns ommatidia posterior of the morphogenetic furrow are compressed into overlapping positions along the anterior-posterior axis inside the morphogenetic furrow. This section of 'ANALYSIS_DRIVER.m' demonstrates how to color in R-cells according to their column identity within the ommatidial lattice.
 
 ![ommatidial_lattice_column_annotation_example](github_media/columns.gif)
 
@@ -86,7 +88,7 @@ We define columns of ommatidia as being parallel to the morphogenetic furrow. In
 
 ## Ommatidial lattice annotation - row annotation
 
-Similar to column identity, we can also define rows of ommatidia as being perpendicular to the morphogenetic furrow. Here, we demonstrate how to color in R-cells according to their row identity within the ommatidial lattice.
+Similar to column identity, we can also define rows of ommatidia as being perpendicular to the morphogenetic furrow. This section of 'ANALYSIS_DRIVER.m' demonstrates how to color in R-cells according to their row identity within the ommatidial lattice.
 
 ![ommatidial_lattice_row_annotation_example](github_media/rows.gif)
 
