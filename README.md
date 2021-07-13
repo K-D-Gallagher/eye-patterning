@@ -3,7 +3,7 @@
 &nbsp;
 
 ## Table of Contents
-- [Section 1: Tutorial of ANALYSIS_DRIVER.m](#section-1-tutorial-of-analysis_driverm)
+- [Section 1: Guide for ANALYSIS_DRIVER.m](#section-1-Guide-for-analysis_driverm)
     - [Cell tracking](#cell-tracking)
     - [Annotation of cell classes](#annotation-of-cell-classes)
     - [Morphogenetic furrow location](#morphogenetic-furrow-location)
@@ -11,7 +11,7 @@
     - [Ommatidial lattice annotation](#ommatidial-lattice-annotation)
     - [Ommatidial lattice annotation - column annotation](#ommatidial-lattice-annotation---column-annotation)
     - [Ommatidial lattice annotation - row annotation](#ommatidial-lattice-annotation---row-annotation)
-- [Section 2: Tutorial of SEG_TRACKING_DRIVER.m](#section-2-tutorial-of-seg_tracking_driverm)
+- [Section 2: Guide for SEG_TRACKING_DRIVER.m](#section-2-guide-for-seg_tracking_driverm)
     - [Read in raw images](#read-in-raw-images)
     - [Pixel classification & segmentation](#pixel-classification--segmentation)
     - [Detect cells - watershed transform & bwlabel](#detect-cells---watershed-transform--bwlabel)
@@ -24,7 +24,7 @@
 &nbsp;
 &nbsp;
 
-# Section 1: Analysis (ANALYSIS_DRIVER.M)
+# Section 1: Guide for ANALYSIS_DRIVER.m
 
 The data we are publishing is very rich and contains many more phenomena than the ones we've reported on. This driver file (ANALYSIS_DRIVER.m) contains code demonstrating how to access our data and the various ways we've annotation the data to extract measurements from subpopulations of cells and/or different regions of interest in the tissue. We hope this code helps facilitate further analysis from researchers interested in expanding on our work or, even better, asking new questions entirely!
 
@@ -87,7 +87,7 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 &nbsp;
 &nbsp;
 
-# Section 2: Segmentation and tracking (SEG_TRACKING_DRIVER.M)
+# Section 2: Guide for SEG_TRACKING_DRIVER.m
 
 The goal of this driver file is to segment and track images. The intention of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification, this will unfortunately involve some manual correction. This driver file brings you from initial pixel classification using an external program (Ilastik or U-Net) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
