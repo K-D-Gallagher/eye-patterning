@@ -11,8 +11,9 @@
 - [Installation](#installation)
 - [License](#license)
 
-
-
+&nbsp;
+&nbsp;
+&nbsp;
 
 ## PART 1: SEGMENTATION AND TRACKING (SEG_TRACKING_DRIVER.M)
 
@@ -24,6 +25,7 @@ are given) through finding and tracking objects in your segmented images
 and using a GUI to discover and correct errors in your segmentation that
 lead to errors in cell tracking.
 
+&nbsp;
 
 ### STEP 1: READ IN RAW IMAGES
 
