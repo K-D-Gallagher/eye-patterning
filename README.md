@@ -11,7 +11,7 @@
     - [Ommatidial lattice annotation - column annotation](#ommatidial-lattice-annotation---column-annotation)
     - [Ommatidial lattice annotation - row annotation](#ommatidial-lattice-annotation---row-annotation)
 - [Section 2: SEG_TRACKING_DRIVER.m](#section-2-seg_tracking_driverm)
-    - [Read in raw images](#read-in-raw-images)
+    - [Surface projection using ImSAnE](#surface-projection-using-imsane)
     - [Pixel classification & segmentation](#pixel-classification--segmentation)
     - [Detect cells - watershed transform & bwlabel](#detect-cells---watershed-transform--bwlabel)
     - [Tracking - hungarian (munkres) algorithm](#tracking---hungarian-munkres-algorithm)
@@ -24,11 +24,15 @@
 
 # Getting started
 
+This code is companion to the publication [link to bioRxiv](linkhere) and documents the data we've published, [Section 1: ANALYSIS_DRIVER.m](#section-1-analysis_driverm), as well as the pipeline we used to generate this data, [Section 2: SEG_TRACKING_DRIVER.m](#section-2-seg_tracking_driverm).
+
 We recommend using [MATLAB R2018a](https://www.mathworks.com/products/new_products/release2018a.html). The [Image Processing Toolkit](https://www.mathworks.com/products/image.html) is required. Most of the code will run fine with newer versions of matlab. However, the GUI for manually correcting segmentation/tracking ('segmenter.m'/'segmenter.fig') was developed using GUIDE, which is becoming deprecated in newer versions of matlab.
 
 Data can be downloaded [here](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). Each dataset is stored as a matlab workspace that contains all the necessary information to run each block of code in 'ANALYSIS_DRIVER.m': Wildtype Replicate 1 can be found in 'wildtype1_data.mat', Wildtype Replicate 2 in 'wildtype2_data.mat', the strong _scabrous_ mutant in 'scabrous_strongMutant_data.mat', and the _weak_ scabrous mutant 'scabrous_weakMutant_data.mat'. Load the .mat files into matlab workspace and then use the driver file to get started with your analysis. Note, only Wildtype Replicate 1 contains the necessary annotations to run the sections pertaining to the ommatidial lattice annotation.
 
 Additionally, the raw images and corresponding segmentation masks are also [available for download](https://drive.google.com/drive/folders/1I-nRpn1esRzs5t4ztgbNvkBQuTN2vT7L?usp=sharing). However, note that our tracking results cannot be perfectly replicated using the munkres assignment algorithm we used for cell tracking because we implemented manual changes to cell tracking via the 'segmenter' GUI. The exact tracking information we used in the publication is contained within the .mat files corresponding to each dataset.
+
+A copy of ImSAnE (Image Surface Analysis Environment) is also included in this repository. You can also download it [here](https://github.com/idse/imsane) and read more about how the software works [here](https://www.nature.com/articles/nmeth.3648).
 
 &nbsp;
 &nbsp;
@@ -103,10 +107,13 @@ Similar to column identity, we can also define rows of ommatidia as being perpen
 
 The goal of this driver file is to document the pipeline we used to process data for our publication, but also to lay the framework for others to process their own data. Unless you find a way to achieve perfect pixel classification (please message me if you do), this will unfortunately involve some manual correction. Improving imaging quality can save a lot of time in data processing: higher resolution, better signal-to-noise greatly improve segmentation quality. This driver file brings you from initial pixel classification using an external program (Ilastik or our custom trained CNN) through finding and tracking objects in your segmented images in matlab and using a GUI to discover and correct errors in your segmentation that lead to errors in cell tracking.
 
-## Read in raw images
+## Surface projection using ImSAnE
 
-While we technically will only be making measurements / doing analysis on a segmentation mask, it is helpful to view the segmentation mask as an overlay on top of the raw images. Therefore, we'll start by loading the raw images into matlab and storing them in a 3D tensor.
+Microscopy data of epithelial tissue must be collected in 3D even though the adherens junction plane (where our fluorescent label that outlines cells is localized to) is approximately planar; this is because the adherens junction curves in the apical-basal dimension (z-axis). Therefore, before we can segment and track cells, we need to create a 2D projection of the adherens junction plane. To do this, we are going to use [ImSAnE (Image Surface Analysis Environment)](https://github.com/idse/imsane), an open source matlab software capable of detecting simple approximately planar surfaces, like our case here, or cyclindrical surfaces, such as the _Drosophila_ embryo.
 
+We've included a copy of ImSAnE in our repository, but it can also be downloaded from [their github](https://github.com/idse/imsane). Their documentation is fantastic and can found in association with their [publication](https://www.nature.com/articles/nmeth.3648). We've included a driver file that we've used that walks you through the surface detection process, utlizing all the steps cited in our methods (driver file name).
+
+An example of surface projected images:
 ![raw_images_example](github_media/raw.gif)
 
 &nbsp;
@@ -143,7 +150,7 @@ The second option for pixel classification is using a convolutional neural netwo
 
 ## Detect cells - watershed transform & bwlabel
 
-After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to use this information to detect the location of cells. To do this, we are going to use a watershed transform ( https://en.wikipedia.org/wiki/Watershed_(image_processing) , https://www.mathworks.com/help/images/ref/watershed.html ) to define objects within the pixel classified images and clean up noise from the pixel classification, followed by a function called bwlabel that will assign identities to binary objects defined using a chosen 2D connectivity. This is a very standard workflow for segmentation and object detection in matlab.
+After transforming our images into a space where 0s represent background pixels or cell interior and 1s represent cell edges, we next need to use this information to detect the location of cells. To do this, we are going to use a [watershed transform](https://en.wikipedia.org/wiki/Watershed_(image_processing)). Objects that are preserved over the watershed transform will be defined as cells - this will result in 1 pixel wide boundaries separating all detected cells and will help clean up noise from pixel classification. We will then use a matlab function called bwlabel that will assign indices to all binary objects (i.e. our cells). This is a very standard workflow for segmentation and object detection in matlab.
 
 ![watershed_example](github_media/watershed_transform.png) https://commons.wikimedia.org/wiki/File:Watershed_transform_-_rain_interpretation.svg
 
@@ -151,7 +158,7 @@ After transforming our images into a space where 0s represent background pixels 
 
 ## Tracking - hungarian (munkres) algorithm
 
-Bwlabel gives cells a unique identify for every time point they exist. To track cells across time, we must create a map that connects cells between adject time points. To do this, we will be using an efficient [matlab implementation](https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm) of the [munkres assignment algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm). The munkres assignment algorithm works very well for tracking epithelial cells if there is accurate segmentation. Inaccurate segmentation makes the task of matching objects between two time points a mess. Therefore, the accuracy of segmentation and tracking are closely related.
+Bwlabel gives a unique index for every every cell at every time point it exists. To track cells across time, we must create a map that connects cells between adject time points. To do this, we will be using an efficient [matlab implementation](https://www.mathworks.com/matlabcentral/fileexchange/20328-munkres-assignment-algorithm) of the [munkres assignment algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm). The munkres assignment algorithm works very well for tracking epithelial cells if there is accurate segmentation. Inaccurate segmentation makes the task of matching objects between two time points a mess. Therefore, the accuracy of segmentation and tracking are closely related.
 
 ![munkres_example](github_media/tracking_im.png)
 
@@ -159,7 +166,7 @@ Bwlabel gives cells a unique identify for every time point they exist. To track 
 
 ## Manual corrections - using the GUI
 
-Try as we might, there is currently no methodology that can generate perfect segmentation. CNNs performed the best out of all methods we tested. However, it still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 20% error in tracking! Therefore, we developed a matlab GUI (segmeter.m/segmenter.fig) that uses tracking errors to discover and correct the underlying segmentation errors. Tutorial video pending.
+Try as we might, there is currently no methodology that can generate perfect segmentation. CNNs performed the best out of all methods we tested. However, the CNN we trained for our specific data still had ~0.5% percent error in segmentation that, when tracked over 120 time points, compounded to over 20% error in tracking! Therefore, we developed a matlab GUI (segmeter.m/segmenter.fig) that uses tracking errors to discover and correct the underlying segmentation errors.  Tutorial video pending.
 
 &nbsp;
 &nbsp;
