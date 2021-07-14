@@ -113,7 +113,7 @@ Microscopy data of epithelial tissue must be collected in 3D even though the adh
 
 We've included a copy of ImSAnE in our repository, but it can also be downloaded from [their github](https://github.com/idse/imsane). Their documentation is fantastic and can found in association with their [publication](https://www.nature.com/articles/nmeth.3648). We've included a driver file that we've used that walks you through the surface detection process, utlizing all the steps cited in our methods (driver file name).
 
-![imsane_schematic](github_media/imsane_schematic.png)
+![imsane_schematic](github_media/imsane_schematics.png)
 
 An example of surface projected images:
 ![raw_images_example](github_media/raw.gif)
