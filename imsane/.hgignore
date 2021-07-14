@@ -1,0 +1,9 @@
+atlas/
+fields/
+SOI.xml
+html/
+projectFiles/
+rawData/
+.*\.jar
+.*DS_Store*
+.*\~
