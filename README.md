@@ -24,7 +24,7 @@
 
 # Getting started
 
-This code is companion to the publication [link to bioRxiv](linkhere) and documents the data we've published, [Section 1: ANALYSIS_DRIVER.m](#section-1-analysis_driverm), as well as the pipeline we used to generate this data, [Section 2: SEG_TRACKING_DRIVER.m](#section-2-seg_tracking_driverm).
+This code is companion to the publication [link to bioRxiv](https://www.biorxiv.org/content/10.1101/2021.07.14.452386v1) and documents the data we've published, [Section 1: ANALYSIS_DRIVER.m](#section-1-analysis_driverm), as well as the pipeline we used to generate this data, [Section 2: SEG_TRACKING_DRIVER.m](#section-2-seg_tracking_driverm).
 
 We recommend using [MATLAB R2018a](https://www.mathworks.com/products/new_products/release2018a.html). The [Image Processing Toolkit](https://www.mathworks.com/products/image.html) is required. Most of the code will run fine with newer versions of matlab. However, the GUI for manually correcting segmentation/tracking ('segmenter.m'/'segmenter.fig') was developed using GUIDE, which is becoming deprecated in newer versions of matlab.
 
